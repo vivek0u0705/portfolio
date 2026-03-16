@@ -31,7 +31,7 @@ export const ContactSection = () => {
       });
 
       toast({
-        title: "Message sent!",
+        title: "Message sent successfully!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
 
@@ -55,10 +55,6 @@ export const ContactSection = () => {
         );
 
         if (response.ok) {
-          toast({
-            title: "Message stored!",
-            description: "Your message has been saved successfully in our database.",
-          });
           e.target.reset();
         } else {
           const errorText = await response.text();
