@@ -22,11 +22,13 @@ export const ContactSection = () => {
     try {
       // ------------------- EMAILJS SEND -------------------
       await emailjs.sendForm(
-        "service_xkzp94u",
-        "template_r5f36w9",
+        "service_g545cwl",
+        "template_q2ubsd9",
         e.target,
-        "78VmBe9N9pWL5ewIF"
-      );
+        "Qe2_Z0O-2mDM5tlO3"
+      ).catch(err => {
+        throw new Error(`EmailJS Error: ${err.text || err.message || JSON.stringify(err)}`);
+      });
 
       toast({
         title: "Message sent!",
@@ -34,41 +36,52 @@ export const ContactSection = () => {
       });
 
       // ------------------- STORE IN DYNAMODB VIA API -------------------
-      const formData = {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value,
-      };
+      try {
+        const formData = {
+          name: e.target.name.value,
+          email: e.target.email.value,
+          message: e.target.message.value,
+        };
 
-      const response = await fetch(
-        "https://8gk8kzmri5.execute-api.ap-south-1.amazonaws.com/prod/contact",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+        const response = await fetch(
+          "https://bupwzl0hod.execute-api.us-east-1.amazonaws.com/contact",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        if (response.ok) {
+          toast({
+            title: "Message stored!",
+            description: "Your message has been saved successfully in our database.",
+          });
+          e.target.reset();
+        } else {
+          const errorText = await response.text();
+          toast({
+            title: "Database storage failed",
+            description: `Server error: ${errorText}. However, your email was still sent.`,
+          });
         }
-      );
-
-      if (response.ok) {
+      } catch (awsError) {
+        console.error("AWS Storage Error:", awsError);
+        const isFetchError = awsError.message === "Failed to fetch";
         toast({
-          title: "Message stored!",
-          description: "Your message has been saved successfully.",
-        });
-        e.target.reset();
-      } else {
-        const errorText = await response.text();
-        toast({
-          title: "Failed to store",
-          description: `Server error: ${errorText}`,
+          title: "Database storage failed",
+          description: isFetchError 
+            ? "Connection to database failed (likely CORS or Stage Name issue). Check your AWS API settings. Your email was still sent!" 
+            : `Could not save to database: ${awsError.message}. Your email was still sent!`,
         });
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Contact Form Error:", error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again later.",
+        description: error.message || "Something went wrong. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
@@ -149,11 +162,10 @@ export const ContactSection = () => {
 
           <div
             className="bg-card p-8 rounded-lg shadow-xs"
-            onSubmit={handleSubmit}
           >
             <h3 className="text-2xl font-semibold mb-6"> Send a Message</h3>
 
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -168,7 +180,7 @@ export const ContactSection = () => {
                   name="name"
                   required
                   className="w-full px-4 py-3 rounded-md border border-input bg-background focus:outline-hidden foucs:ring-2 focus:ring-primary"
-                  placeholder="John Doe..."
+                  placeholder="Your Name..."
                 />
               </div>
 
