@@ -72,8 +72,8 @@ export const ContactSection = () => {
         const isFetchError = awsError.message === "Failed to fetch";
         toast({
           title: "Database storage failed",
-          description: isFetchError 
-            ? "Connection to database failed (likely CORS or Stage Name issue). Check your AWS API settings. Your email was still sent!" 
+          description: isFetchError
+            ? "Connection to database failed (likely CORS or Stage Name issue). Check your AWS API settings. Your email was still sent!"
             : `Could not save to database: ${awsError.message}. Your email was still sent!`,
         });
       }
