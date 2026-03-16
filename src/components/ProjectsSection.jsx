@@ -78,6 +78,7 @@ export const ProjectsSection = () => {
                     <a
                       href={project.demoUrl}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-foreground/80 hover:text-primary transition-colors duration-300"
                     >
                       <ExternalLink size={20} />
@@ -85,6 +86,7 @@ export const ProjectsSection = () => {
                     <a
                       href={project.githubUrl}
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="text-foreground/80 hover:text-primary transition-colors duration-300"
                     >
                       <Github size={20} />
@@ -100,6 +102,7 @@ export const ProjectsSection = () => {
           <a
             className="cosmic-button w-fit flex items-center mx-auto gap-2"
             target="_blank"
+            rel="noopener noreferrer"
             href="https://github.com/vivek0u0705?tab=repositories"
           >
             Check My Github <ArrowRight size={16} />
