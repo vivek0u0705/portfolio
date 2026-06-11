@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, Github } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Code } from "lucide-react";
 
 const projects = [
   {
@@ -12,23 +12,24 @@ const projects = [
   },
   {
     id: 2,
-    title: "Regal Voyage",
-    description:
-      "Built a full-stack booking platform with JWT authentication, RESTful APIs, React frontend, and optimized MongoDB queries",
-    image: "/projects/project2.png",
-    tags: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs", "TailwindCSS"],
-    demoUrl: "https://regalvoyage.vercel.app/",
-    githubUrl: "https://github.com/TMVNPrathyush-7/regalvoyage",
-  },
-  {
-    id: 3,
     title: "Portfolio Website with Automated CI/CD Deployment",
     description:
       "A personal portfolio website showcasing my projects and skills, with automated CI/CD deployment using GitHub Actions.",
-    image: "/projects/project3.png",
+    image: "/projects/project2.png",
     tags: ["React ", "AWS S3", "Amazon CloudFront", "AWS IAM", "TailwindCSS", "AWS DynamoDB", "AWS Lambda"],
     demoUrl: "https://d2qpdwu496dmt8.cloudfront.net/",
     githubUrl: "https://github.com/vivek0u0705/portfolio",
+  },
+  {
+    id: 3,
+    title: "Loan Predictor and Risk Analyser",
+    description:
+      "Machine Learning-powered web application that predicts loan approvals, evaluates borrower default risk, and classifies applicants into risk categories using an XGBoost model.",
+    image: "/projects/project3.png",
+    tags: ["React.js", "Flask", "Python", "XGBoost", "Scikit-Learn", "REST API"],
+    demoUrl: "https://smart-loan-approval-system.vercel.app/",
+    githubUrl: "https://github.com/vivek0u0705/smart-loan-approval-system",
+    codeUrl: "https://colab.research.google.com/drive/1y3-q_Llu593SocRSuhHsrtPgo_8ozcgc",
   },
 ];
 
@@ -52,11 +53,11 @@ export const ProjectsSection = () => {
               key={key}
               className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
             >
-              <div className="h-48 overflow-hidden">
+              <div className="h-48 overflow-hidden bg-secondary/30 flex items-center justify-center">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
 
@@ -91,6 +92,17 @@ export const ProjectsSection = () => {
                     >
                       <Github size={20} />
                     </a>
+                    {project.codeUrl && (
+                      <a
+                        href={project.codeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-foreground/80 hover:text-primary transition-colors duration-300"
+                        title="View Code (Google Colab)"
+                      >
+                        <Code size={20} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

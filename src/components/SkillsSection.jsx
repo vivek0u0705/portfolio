@@ -14,7 +14,6 @@ const skills = [
   { name: "CSS", level: 90, category: "frontend" },
   { name: "JavaScript", level: 75, category: "frontend" },
   { name: "React", level: 80, category: "frontend" },
-  { name: "Tailwind CSS", level: 90, category: "frontend" },
 
   // Backend
   { name: "Node.js", level: 80, category: "backend" },
@@ -25,7 +24,6 @@ const skills = [
   // Tools
   { name: "Git", level: 90, category: "tools" },
   { name: "GitHub", level: 90, category: "tools" },
-  { name: "VS Code", level: 95, category: "tools" },
 
   // Machine Learning
   { name: "python for ML", level: 80, category: "Machine Learning" },
@@ -33,21 +31,19 @@ const skills = [
   { name: "pandas", level: 90, category: "Machine Learning" },
   { name: "Matplotlib", level: 80, category: "Machine Learning" },
   { name: "Scikit-learn", level: 75, category: "Machine Learning" },
-  { name: "Google Colab", level: 95, category: "Machine Learning" },
-  { name: "Jupyter Notebook", level: 95, category: "Machine Learning" },
 
   //cloud
   { name: "AWS", level: 70, category: "cloud" },
 
 ];
 
-const categories = ["all", "Programming Skills", "frontend", "backend", "tools", "Machine Learning", "cloud"];
+const categories = ["Programming Skills", "frontend", "backend", "tools", "Machine Learning", "cloud"];
 
 export const SkillsSection = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("Programming Skills");
 
   const filteredSkills = skills.filter(
-    (skill) => activeCategory === "all" || skill.category === activeCategory
+    (skill) => skill.category === activeCategory
   );
   return (
     <section id="skills" className="py-24 px-4 relative bg-transparent">
